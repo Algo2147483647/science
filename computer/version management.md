@@ -19,10 +19,10 @@ Git is a distribute version control system designed to efficiently manage and tr
   * Object Database: The object database stores all the data and content of the project's files. It uses a content-addressable storage model, where each file and version is identified by a unique SHA-1 hash. Git objects include blobs (file contents), trees (directory structures), commits (snapshots of the project at a specific point in time), and tags (named references to specific commits).
   * Reference Database: The reference database holds references to specific commits within the object database. It includes branch references, which are pointers to specific commits on a branch, and tags, which are human-readable names assigned to specific commits.
 
-* **Index (Staging Area)**: is an intermediate area where changes to the project's files are prepared to be committed.
+* **Staging Area**: is an intermediate area where changes to the project's files are prepared to be committed.
 * **Working Directory**: is the directory on a developer's local machine where they make modifications to the project's files. It represents the current state of the codebase and includes all the files and directories.
 
-## Command & Operations
+### Command & Operations
 - ***config***: Used to configure Git user information, text editor, etc.
   - ***--list***: list all Git configuration items.
   - ***--global*** user.name "Your Name": Set the global username.
@@ -58,9 +58,11 @@ Git is a distribute version control system designed to efficiently manage and tr
 - ***log***: View commit history, including commit hash, author, date, commit message, and more.
   - ***--pretty***=oneline: Displays the commit history in a concise one-line format.
 
-## Branch & Gitflow Workflow
+## Branch
 
 Branches are independent lines of development within the repository. They allow developers to work on different features or bug fixes simultaneously. Each branch has its own commit history and can be merged with other branches to incorporate changes.
+
+### Gitflow Workflow
 
 * Long-term branch
   * `Main/Master`: The core branch of the project represents the stable version of the software and usually contains code that can be directly deployed to the production environment.
@@ -70,25 +72,25 @@ Branches are independent lines of development within the repository. They allow 
   * `Feature`: A branch created for new requirements or new feature development, usually derived from the Develop branch.
   * `bugfix/hotfix`: A branch used to urgently fix serious bugs in the production environment, usually derived from the Main/Master branch.
 
-<img src="./assets/git-flow-nvie.png" alt="git-flow-nvie" style="zoom:17%;" />
+<img src="./assets/04 Hotfix branches.svg" width="60%">
 
-### Main/Master & Develop branches
+#### Main/Master & Develop branches
 
 Instead of a single `main` (`master`) branch, this workflow uses two branches to record the history of the project. The `main` branch stores the official release history, and the `develop` branch serves as an integration branch for features. It's also convenient to tag all commits in the `main` branch with a version number.
 
-### Feature branches
+#### Feature branches
 
 Each new feature should reside in its own branch, which can be pushed to the central repository for backup/collaboration. But, instead of branching off of main, feature branches use develop as their parent branch. When a feature is complete, it gets merged back into develop. Features should never interact directly with main.
 
-### Release branches
+#### Release branches
 
 Once develop has acquired enough features for a release (or a predetermined release date is approaching), you fork a release branch off of develop. Creating this branch starts the next release cycle, so no new features can be added after this point—only bug fixes, documentation generation, and other release-oriented tasks should go in this branch. Once it's ready to ship, the release branch gets merged into main and tagged with a version number. In addition, it should be merged back into develop, which may have progressed since the release was initiated.
 
-### Hotfix branches
+#### Hotfix branches
 
 Maintenance or hotfix branches are used to quickly patch production releases. `Hotfix` branches are a lot like `release` branches and `feature` branches except they're based on `main` instead of `develop`. This is the only branch that should fork directly off of `main`. As soon as the fix is complete, it should be merged into both `main` and `develop` (or the current `release` branch), and `main` should be tagged with an updated version number.
 
-## Conflict Resolution
+### Conflict Resolution
 
 - **Identify the conflict & Open the conflicting file(s)**: When you attempt to merge or rebase branches and encounter a conflict, Git will notify you of the conflicting files. Use a text editor or an integrated development environment (IDE) to open the files with conflicts. In the file, Git will mark the conflicting sections with special markers, such as `<<<<<<<`, `=======`, and `>>>>>>>`.
 
