@@ -40,5 +40,3 @@ Von Neumann architecture describes a design architecture for an electronic digit
 
 
 
-
-
